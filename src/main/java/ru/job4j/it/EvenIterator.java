@@ -14,12 +14,12 @@ public class EvenIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        for (int num : numbers) {
-            if (num % 2 == 0) {
-                return true;
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] % 2 != 0) {
+                point++;
             }
         }
-        return false;
+        return point < numbers.length;
     }
 
     @Override
