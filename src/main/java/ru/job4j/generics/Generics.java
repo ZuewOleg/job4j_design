@@ -19,14 +19,14 @@ public class Generics {
         gen.printObject(third);
         System.out.println();
 
-        gen.printBoundedWildCard(first); /* "Ограничение сверху" должно быть до типа Animal */
+     /* gen.printBoundedWildCard(first); "Ограничение сверху" должно быть до типа Animal */
         gen.printBoundedWildCard(second);
         gen.printBoundedWildCard(third);
         System.out.println();
 
         gen.printLowerBoundedWildCard(first);
         gen.printLowerBoundedWildCard(second);
-        gen.printLowerBoundedWildCard(third); /* "Ограничение снизу" должно быть до типа Tiger */
+     /* gen.printLowerBoundedWildCard(third); "Ограничение снизу" должно быть до типа Tiger */
     }
 
     public void printObject(List<?> list) {
