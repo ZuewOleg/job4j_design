@@ -14,8 +14,10 @@ public class EvenIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        if (numbers[point] % 2 != 0) {
-            point++;
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] % 2 != 0) {
+                point++;
+            }
         }
         return point < numbers.length;
     }
@@ -24,8 +26,6 @@ public class EvenIterator implements Iterator<Integer> {
     public Integer next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
-        } else if (point > numbers.length) {
-            throw new ArrayIndexOutOfBoundsException();
         }
         return numbers[point++];
     }
