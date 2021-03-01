@@ -29,16 +29,16 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public boolean remove(int index) {
-        boolean rsl = index != -1;
+        boolean rsl = iterator().hasNext();
         if (rsl) {
-            System.arraycopy(array, index + 1, array, index, size - index);
+            System.arraycopy(array, index + 1, array, index, size - index - 1);
             array[size - 1] = null;
         }
         return rsl;
     }
 
     public boolean set(int index, T model) {
-        boolean rsl = index != -1;
+        boolean rsl = iterator().hasNext();
         if (rsl) {
             array[index] = model;
         }
@@ -46,7 +46,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<>() {
+        return new Iterator<T>() {
             @Override
             public boolean hasNext() {
                 return index < size;
