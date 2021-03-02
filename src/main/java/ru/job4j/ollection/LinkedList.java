@@ -1,14 +1,15 @@
 package ru.job4j.ollection;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class LinkedList<E> implements Iterable<E> {
     transient int size = 0;
     transient Node<E> first;
     transient Node<E> last;
     private int modCount;
-    private int index;
 
     public void add(E value) {
         final Node<E> l = last;
@@ -18,12 +19,13 @@ public class LinkedList<E> implements Iterable<E> {
             first = newNode;
         } else {
             l.next = newNode;
-            size++;
-            modCount++;
         }
+        size++;
+        modCount++;
     }
 
     public E get(int index) {
+        Objects.checkIndex(index, size);
         Node<E> rsl = first;
         for (int i = 0; i < index; i++) {
             rsl = rsl.next;
@@ -34,9 +36,15 @@ public class LinkedList<E> implements Iterable<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
+            private int count;
+            private int expectedModCount = modCount;
+
             @Override
             public boolean hasNext() {
-                return index < size;
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                return count < size;
             }
 
             @Override
@@ -44,7 +52,7 @@ public class LinkedList<E> implements Iterable<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return get(index++);
+                return first.item;
             }
         };
     }
