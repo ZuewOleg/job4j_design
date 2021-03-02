@@ -1,43 +1,44 @@
 package ru.job4j.ollection;
 
-import java.util.Arrays;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class SimpleArray<T> implements Iterable<T> {
-    transient T[] array;
+    private T[] array;
     private int size;
     private int index;
-    int modCount = 0;
+    private int modCount = 0;
 
     public SimpleArray(int size) {
         this.array = (T[]) new Object[size];
         this.size = size;
     }
 
+    private void checkSize() {
+        if (index == array.length) {
+            array = Arrays.copyOf(array, array.length * 2);
+        }
+    }
+
     public T get(int index) {
+        Objects.checkIndex(index, this.index);
         return this.array[index];
     }
 
     public void add(T model) {
-        if (this.array[index] == null) {
-            this.array[index] = model;
-        } else if (index == array.length) {
-            Arrays.copyOf(array, size + index);
-            array[index] = model;
-            size = index + 1;
-        }
+        checkSize();
+        array[index++] = model;
+        modCount++;
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             int expectedModCount = modCount;
+            int count = 0;
 
             @Override
             public boolean hasNext() {
-                return index < size;
+                return count < index;
             }
 
             @Override
@@ -48,7 +49,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return get(index++);
+                return array[count++];
             }
         };
     }
