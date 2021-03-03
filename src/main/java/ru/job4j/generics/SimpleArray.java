@@ -14,10 +14,6 @@ public class SimpleArray<T> implements Iterable<T> {
         this.size = size;
     }
 
-    public T[] getArray() {
-        return array;
-    }
-
     public void add(T model) {
             this.array[index] = model;
     }
@@ -28,16 +24,19 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public boolean remove(int index) {
-        if (Objects.checkIndex(index, this.index) != -1) {
+        var rsl = Objects.checkIndex(index, this.index);
+        if (rsl != -1 && rsl < array.length) {
             System.arraycopy(array, index + 1, array, index, size - index - 1);
             array[size - 1] = null;
+            this.index--;
             return true;
         }
         return false;
     }
 
     public boolean set(int index, T model) {
-        if (Objects.checkIndex(index, this.index) != -1) {
+        var rsl = Objects.checkIndex(index, this.index);
+        if (rsl != -1 && rsl < array.length) {
             array[index] = model;
             return true;
         }
