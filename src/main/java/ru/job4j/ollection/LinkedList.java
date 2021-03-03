@@ -36,7 +36,7 @@ public class LinkedList<E> implements Iterable<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            private int count;
+            private Node<E> current = first;
             private int expectedModCount = modCount;
 
             @Override
@@ -44,7 +44,7 @@ public class LinkedList<E> implements Iterable<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return count < size;
+                return current != last;
             }
 
             @Override
@@ -52,7 +52,9 @@ public class LinkedList<E> implements Iterable<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return first.item;
+                E value = current.item;
+                current = current.next;
+                return value;
             }
         };
     }
