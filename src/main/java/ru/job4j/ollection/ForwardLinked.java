@@ -32,9 +32,10 @@ public class ForwardLinked<T> implements Iterable<T> {
         T value = head.value;
         if (head == head.next) {
             head = null;
-        } else if (head.next == null) {
-            head = head.prev;
         }
+        while (head == head.next.prev) {
+                head.prev.next = null;
+            }
         return value;
     }
 
