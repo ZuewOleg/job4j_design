@@ -20,23 +20,36 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public T deleteFirst() {
-        if (head == null) {
+        if (head == null) { /* если список пуст, то удолять нечего, кидаем исключение */
             throw new NoSuchElementException();
         }
-        T value = head.value;
-        head = head.next;
-        return value;
+        T value = head.value; /* получем значение удаляемого узла */
+        head = head.next; /* удаление */
+        return value; /* возвращаем значение */
     }
 
     public T deleteLast() {
-        T value = head.value;
-        if (head == head.next) {
-            head = null;
+        if (head == null) { /* если список пуст, то удолять нечего, кидаем исключение */
+            throw new NoSuchElementException();
         }
-        while (head == head.next.prev) {
-                head.prev.next = null;
-            }
-        return value;
+        if (head.next == null) { /* в списке один элемент, следовательно удаляем голову */
+            T value = head.value;
+            head = null;
+            return value;
+        }
+        /* иначе в списке больше одного элемента */
+        Node<T> beforeLast = null; /* предпослений элемент в списке */
+        Node<T> last = head; /* последний элемент в списке */
+        /* доходим до конца списка */
+        while (last.next != null) {
+            beforeLast = last;
+            last = last.next;
+        }
+        T value = last.value; /* получем значение удаляемого узла */
+        beforeLast.next = null; /* удаляем последний элемент, и удалаляем удаление на него ссылки */
+        /* Если ссылка на него, то уже не сможем получить доступ */
+        return value; /* возвращаем значение */
+
     }
 
     @Override
