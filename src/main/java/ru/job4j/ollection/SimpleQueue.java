@@ -11,7 +11,11 @@ public class SimpleQueue<T> {
 
     /** должен возвращать первое значение и удалять его из коллекции */
     public T poll() {
-        out.push(in.pop());
+        if (out.isEmpty()) {
+            while (!in.isEmpty()) {
+                out.push(in.pop());
+            }
+        }
         return out.pop();
     }
 

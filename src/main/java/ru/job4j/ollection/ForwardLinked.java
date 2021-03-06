@@ -49,7 +49,10 @@ public class ForwardLinked<T> implements Iterable<T> {
         beforeLast.next = null; /* удаляем последний элемент, и удалаляем удаление на него ссылки */
         /* Если ссылка на него, то уже не сможем получить доступ */
         return value; /* возвращаем значение */
+    }
 
+    public boolean isEmpty() {
+        return head == null;
     }
 
     @Override
