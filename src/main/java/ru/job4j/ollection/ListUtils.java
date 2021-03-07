@@ -55,16 +55,10 @@ public class ListUtils {
 
     /** удаляет из списка те элементы, которые есть в elements */
     public static <T> void removeAll(List<T> list, List<T> elements) {
-        ListIterator<T> l = list.listIterator();
-        while (l.hasNext()) {
-            T lst = l.next();
-            ListIterator<T> e = elements.listIterator();
-            while (e.hasNext()) {
-                T elm = e.next();
-                if (lst.equals(elm)) {
-                    l.remove();
-                }
-            }
+        ListIterator<T> e = elements.listIterator();
+        while (e.hasNext()) {
+            T elm = e.next();
+            ListUtils.removeIf(list, x -> x.equals(elm));
         }
     }
 }
