@@ -13,6 +13,14 @@ public class SimpleArray<T> implements Iterable<T> {
         this.size = size;
     }
 
+    public T[] getArray() {
+        return array;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
     private void checkSize() {
         if (index == array.length) {
             array = Arrays.copyOf(array, array.length * 2);
@@ -20,7 +28,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        Objects.checkIndex(index, this.index);
+
         return this.array[index];
     }
 
