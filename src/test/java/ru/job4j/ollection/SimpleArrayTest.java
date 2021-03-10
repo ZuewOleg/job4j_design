@@ -21,7 +21,7 @@ public class SimpleArrayTest {
 
     @Test
     public void whenAddThenIt() {
-        SimpleArray<String> array = new SimpleArray<>(3);
+        SimpleArray<String> array = new SimpleArray<>(5);
         array.add("first");
         String rsl = array.iterator().next();
         assertThat(rsl, is("first"));
