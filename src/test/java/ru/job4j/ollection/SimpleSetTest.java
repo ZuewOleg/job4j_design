@@ -17,8 +17,10 @@ public class SimpleSetTest {
         set.add(1);
         set.add(2);
         set.add(1);
-        Integer[] expect = new Integer[]{1, 2, null};
-        assertThat(set.getSet(), is(expect));
+        SimpleSet<Integer> expect = new SimpleSet<>(3);
+        expect.add(1);
+        expect.add(2);
+        assertThat(set.iterator().next(), is(expect.iterator().next()));
     }
 
     @Test(expected = NoSuchElementException.class)

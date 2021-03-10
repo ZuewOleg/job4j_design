@@ -9,19 +9,19 @@ public class SimpleSet<T> implements Iterable<T> {
         this.set = new SimpleArray<>(size);
     }
 
-    public T[] getSet() {
-        return set.getArray();
+    public boolean contains(T value) {
+        boolean check = false;
+        for (var s : set) {
+            if (value.equals(s)) {
+                check = true;
+                break;
+            }
+        }
+        return check;
     }
 
     public void add(T model) {
-        boolean check = false;
-            for (int i = 0; i < set.getSize(); i++) {
-                if (model.equals(set.get(i))) {
-                    check = true;
-                    break;
-                }
-            }
-        if (!check) {
+        if (!contains(model)) {
             set.add(model);
         }
     }
