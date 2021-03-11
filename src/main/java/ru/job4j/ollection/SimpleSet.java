@@ -12,7 +12,7 @@ public class SimpleSet<T> implements Iterable<T> {
     public boolean contains(T value) {
         boolean check = false;
         for (var s : set) {
-            if (value.equals(s)) {
+            if (Objects.equals(s, value)) {
                 check = true;
                 break;
             }
