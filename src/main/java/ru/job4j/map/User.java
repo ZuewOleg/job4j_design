@@ -44,22 +44,18 @@ public class User {
         if (this == o) {
             return true;
         }
-        if (o == null || o.getClass() != this.getClass()) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         User user = (User) o;
         return children == user.children
-                && (name == user.name
-                || (name != null && name.equals(user.getName())))
-                && (birthday == user.birthday
-                || (birthday != null && birthday.equals(user.getBirthday())));
+                && Objects.equals(name, user.name)
+                && Objects.equals(birthday, user.birthday);
     }
 
     @Override
     public int hashCode() {
-        int rsl = name.hashCode();
-        rsl = 31 * rsl + children;
-        return rsl;
+        return Objects.hash(name, children, birthday);
     }
 
     @Override
