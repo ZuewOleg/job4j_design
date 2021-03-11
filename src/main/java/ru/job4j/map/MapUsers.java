@@ -14,6 +14,7 @@ public class MapUsers {
         map.put(user1, new Object());
         map.put(user2, new Object());
         System.out.println("map" + map);
+
     }
 
 }
