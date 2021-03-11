@@ -13,7 +13,7 @@ public class MapUsers {
         Map<User, Object> map = new HashMap<>();
         map.put(user1, new Object());
         map.put(user2, new Object());
-        System.out.println("map" + map);
+        System.out.println(map);
     }
 
 }
