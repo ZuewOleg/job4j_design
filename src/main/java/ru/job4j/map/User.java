@@ -1,6 +1,7 @@
 package ru.job4j.map;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 public class User {
@@ -54,6 +55,17 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, children, birthday);
+        int rsl = name.hashCode();
+        rsl = 31 * rsl + children;
+        return rsl;
+    }
+
+    @Override
+    public String toString() {
+        return "User{"
+                + "name='" + name + '\''
+                + ", children=" + children
+                + ", birthday=" + birthday
+                + '}';
     }
 }
