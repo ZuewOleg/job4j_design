@@ -45,13 +45,15 @@ public class User {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (o == null || o.getClass() != this.getClass()) {
             return false;
         }
         User user = (User) o;
         return children == user.children
-                && Objects.equals(name, user.name)
-                && Objects.equals(birthday, user.birthday);
+                && (name == user.name
+                || (name != null && name.equals(user.getName())))
+                && (birthday == user.birthday
+                || (birthday != null && birthday.equals(user.getBirthday())));
     }
 
     @Override
