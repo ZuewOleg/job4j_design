@@ -1,12 +1,14 @@
 package ru.job4j.map;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 public class User {
     private String name;
     private int children;
-    private Calendar birthday;
+    private Calendar birthday = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH,
+            Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND);
 
     public User(String name, int children, Calendar birthday) {
         this.name = name;
@@ -43,22 +45,18 @@ public class User {
         if (this == o) {
             return true;
         }
-        if (o == null || o.getClass() != this.getClass()) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         User user = (User) o;
         return children == user.children
-                && (name == user.name
-                || (name != null && name.equals(user.getName())))
-                && (birthday == user.birthday
-                || (birthday != null && birthday.equals(user.getBirthday())));
+                && Objects.equals(name, user.name)
+                && Objects.equals(birthday, user.birthday);
     }
 
     @Override
     public int hashCode() {
-        int rsl = name.hashCode();
-        rsl = 31 * rsl + children;
-        return rsl;
+        return Objects.hash(name, children, birthday);
     }
 
     @Override
