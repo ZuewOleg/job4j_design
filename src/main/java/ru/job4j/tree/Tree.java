@@ -3,11 +3,12 @@ package ru.job4j.tree;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.function.Predicate;
 
 class Tree<E> implements SimpleTree<E> {
     private final Node<E> root;
 
-    Tree(final E root) {
+    public Tree(final E root) {
         this.root = new Node<>(root);
     }
 
@@ -45,4 +46,6 @@ class Tree<E> implements SimpleTree<E> {
         }
         return rsl;
     }
+
+
 }
