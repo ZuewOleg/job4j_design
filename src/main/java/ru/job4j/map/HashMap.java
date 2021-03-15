@@ -28,11 +28,15 @@ public class HashMap<K, V> {
         public V getValue() {
             return value;
         }
+
+        public K getKey() {
+            return key;
+        }
     }
 
     private int hash(K key) { /* поиск хэша */
-        int h;
-        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+        int h = key.hashCode();
+        return (key == null) ? 0 : (h ^ (h >>> 16));
     }
 
     public boolean insert(K key, V value) { /* вставка */
@@ -52,15 +56,28 @@ public class HashMap<K, V> {
     }
 
     public V get(K key) {
-        int index = hash(key) % (table.length - 1);
+        int hash = hash(key);
+        int index = hash % (table.length - 1);
         Node<K, V> node = table[index];
-        return node.getValue();
+        if (node.getKey().equals(key)) {
+            return node.getValue();
+        } else {
+            throw new NoSuchElementException("Element not found");
+        }
     }
 
     public boolean delete(K key) {
-        size--;
-        modCount++;
-        return false;
+        int hash = hash(key);
+        int index = hash % (table.length - 1);
+        Node<K, V> node = table[index];
+        if (node.getKey().equals(key)) {
+            table[index] = null;
+            size--;
+            modCount++;
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private Node<K, V>[] resize() {
@@ -90,11 +107,14 @@ public class HashMap<K, V> {
             @Override
             public Node<K, V> next() {
                 checkModification();
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                } else {
-                    return table[cursor++];
+                for (int i = cursor; i < table.length; i++) {
+                    if (!hasNext()) {
+                        throw new NoSuchElementException();
+                    } else if (table[i] == null) {
+                        throw new NullPointerException();
+                    }
                 }
+                return table[cursor++];
             }
 
             private void checkModification() {
