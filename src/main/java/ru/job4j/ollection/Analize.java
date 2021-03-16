@@ -1,24 +1,27 @@
 package ru.job4j.ollection;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Analize {
     public Info diff(List<User> previous, List<User> current) {
         Info rsl = new Info(0, 0, 0);
+        Map<Integer, String> currents = current.stream().collect(Collectors.toMap(User::getId, User::getName));
         for (var p : previous) {
-            for (var c : current) {
-                    if (p.getId() == c.getId()) {
-                if (!p.getName().equals(c.getName())) {
+            if (currents.containsKey(p.getId())) {
+                if (!currents.containsValue(p.getName())) {
                     rsl.changed++;
                 }
-                }
-                if (previous.size() > current.size()) {
-                    rsl.deleted = previous.size() - current.size();
-                } else if (previous.size() < current.size()) {
-                    rsl.added = current.size() - previous.size();
+            }
+                if (previous.size() > currents.size()) {
+                    rsl.deleted = previous.size() - currents.size();
+                } else if (previous.size() < currents.size()) {
+                    rsl.added = currents.size() - previous.size();
                 }
             }
-        }
         return rsl;
     }
 
