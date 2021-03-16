@@ -35,49 +35,57 @@ public class HashMap<K, V> {
     }
 
     private int hash(K key) { /* поиск хэша */
+        if (key == null) {
+                throw new NullPointerException();
+        }
         int h = key.hashCode();
-        return (key == null) ? 0 : (h ^ (h >>> 16));
+        return (h ^ (h >>> 16));
     }
 
     public boolean insert(K key, V value) { /* вставка */
+        boolean rsl = true;
         int hash = hash(key);
         int index = hash % (table.length - 1);
         if (size >= threshold) {
             table = resize();
-            modCount++;
-        } else if (table[index] != null) {
-            return false;
-        } else {
+        } else if (table[index] == null) {
             table[index] = new Node<>(key, value, hash);
             size++;
             modCount++;
+            rsl = true;
+        } else {
+            rsl = false;
         }
-        return true;
+        return rsl;
     }
 
     public V get(K key) {
+        V rsl = null;
         int hash = hash(key);
         int index = hash % (table.length - 1);
         Node<K, V> node = table[index];
-        if (node.getKey().equals(key)) {
-            return node.getValue();
-        } else {
-            throw new NoSuchElementException("Element not found");
+        if (node != null) {
+            if (node.getKey().equals(key)) {
+                rsl = node.getValue();
+            }
         }
+        return rsl;
     }
 
     public boolean delete(K key) {
+        boolean rsl = true;
         int hash = hash(key);
         int index = hash % (table.length - 1);
         Node<K, V> node = table[index];
+        if (node != null) {
         if (node.getKey().equals(key)) {
             table[index] = null;
             size--;
             modCount++;
-            return false;
-        } else {
-            return true;
+            rsl = false;
         }
+        }
+        return rsl;
     }
 
     private Node<K, V>[] resize() {
@@ -106,21 +114,19 @@ public class HashMap<K, V> {
 
             @Override
             public Node<K, V> next() {
-                checkModification();
-                for (int i = cursor; i < table.length; i++) {
-                    if (!hasNext()) {
-                        throw new NoSuchElementException();
-                    } else if (table[i] == null) {
-                        throw new NullPointerException();
-                    }
-                }
-                return table[cursor++];
-            }
-
-            private void checkModification() {
                 if (modCount != expectedModCount) {
                     throw new ConcurrentModificationException();
                 }
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                for (int i = cursor; i < table.length; i++) {
+                    if (table[i] != null) {
+                        cursor = i;
+                        break;
+                    }
+                }
+                return table[cursor++];
             }
         };
     }
