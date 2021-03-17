@@ -48,7 +48,8 @@ public class HashMap<K, V> {
         int index = hash % (table.length - 1);
         if (size >= threshold) {
             table = resize();
-        } else if (table[index] == null) {
+        }
+        if (table[index] == null) {
             table[index] = new Node<>(key, value, hash);
             size++;
             modCount++;
