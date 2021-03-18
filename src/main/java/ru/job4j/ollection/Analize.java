@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 public class Analize {
     public Info diff(List<User> previous, List<User> current) {
         Info rsl = new Info(0, 0, 0);
-        User userMap = new User (0, " ");
-        User userList = new User (0, " ");
+        User userMap = new User(0, "0");
+        User userList = new User(0, " ");
         for (int i = 0; i < current.size(); i++) {
             Map<Integer, User> currents = current.stream().collect(Collectors.toMap(User::getId, Function.identity()));
             for (var p : previous) {
