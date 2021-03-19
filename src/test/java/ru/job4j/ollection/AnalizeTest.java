@@ -91,7 +91,7 @@ public class AnalizeTest {
     }
 
     @Test
-    public void diffAddaedAndChanged() {
+    public void diffAddedAndChanged() {
         Analize.User user1 = new Analize.User(1, "first");
         Analize.User user2 = new Analize.User(2, "second");
         Analize.User user3 = new Analize.User(3, "third");
