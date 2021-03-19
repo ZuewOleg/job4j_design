@@ -14,6 +14,10 @@ public class HashMap<K, V> {
         threshold = (int) (table.length * 0.75f);
     }
 
+    public int getSize() {
+        return size;
+    }
+
     static class Node<K, V> { /* класс узла */
         final K key;
         V value;
@@ -130,5 +134,23 @@ public class HashMap<K, V> {
                 return table[cursor++];
             }
         };
+    }
+
+    public static class User {
+        int id;
+        String name;
+
+        public User(int id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 }
