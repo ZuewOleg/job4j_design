@@ -4,21 +4,18 @@ import java.io.FileOutputStream;
 
 public class ResultFile {
     public static void main(String[] args) {
-        for (int i = 1; i <= 9; i++) {
-            int rsl = i * 1;
-            try (FileOutputStream out = new FileOutputStream("Multiple.txt")) {
-                out.write(("1 * 1 = " + rsl).getBytes());
-                out.write(("1 * 2 = " + rsl).getBytes());
-                out.write(("1 * 3 = " + rsl).getBytes());
-                out.write(("1 * 4 = " + rsl).getBytes());
-                out.write(("1 * 5 = " + rsl).getBytes());
-                out.write(("1 * 6 = " + rsl).getBytes());
-                out.write(("1 * 7 = " + rsl).getBytes());
-                out.write(("1 * 8 = " + rsl).getBytes());
-                out.write(("1 * 9 = " + rsl).getBytes());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try (FileOutputStream out = new FileOutputStream("Multiple.txt")) {
+            out.write(("1 * 1 = 1" + System.lineSeparator()).getBytes());
+            out.write(("1 * 2 = 2" + System.lineSeparator()).getBytes());
+            out.write(("1 * 3 = 3" + System.lineSeparator()).getBytes());
+            out.write(("1 * 4 = 4" + System.lineSeparator()).getBytes());
+            out.write(("1 * 5 = 5" + System.lineSeparator()).getBytes());
+            out.write(("1 * 6 = 6" + System.lineSeparator()).getBytes());
+            out.write(("1 * 7 = 7" + System.lineSeparator()).getBytes());
+            out.write(("1 * 8 = 8" + System.lineSeparator()).getBytes());
+            out.write(("1 * 9 = 9" + System.lineSeparator()).getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
