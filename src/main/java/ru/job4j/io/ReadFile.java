@@ -1,9 +1,11 @@
 package ru.job4j.io;
 
-import java.io.FileInputStream;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReadFile {
-    public static void main(String[] args) {
+    /* public static void main(String[] args) {
         try (FileInputStream in = new FileInputStream("input.txt")) {
             StringBuilder text = new StringBuilder();
             int read;
@@ -14,5 +16,13 @@ public class ReadFile {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    } */
+
+        public static void main(String[] args) {
+            try (BufferedReader in = new BufferedReader(new FileReader("input.txt"))) {
+                in.lines().forEach(System.out::println);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 }
