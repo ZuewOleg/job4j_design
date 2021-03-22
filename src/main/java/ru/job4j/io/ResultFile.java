@@ -22,7 +22,6 @@ public class ResultFile {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         /* try (FileOutputStream out = new FileOutputStream("result.txt")) {
             out.write(("1 * 1 = 1" + System.lineSeparator()).getBytes());
             out.write(("1 * 2 = 2" + System.lineSeparator()).getBytes());
