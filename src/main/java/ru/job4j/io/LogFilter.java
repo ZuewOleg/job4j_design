@@ -12,7 +12,7 @@ public class LogFilter {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 String[] l = line.split(" ");
                 if (l[l.length - 2].equals("404")) {
-                    rsl.add(line + System.lineSeparator());
+                    rsl.add(line);
                 }
             }
         } catch (Exception e) {
