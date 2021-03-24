@@ -5,25 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Analizy {
-    public void unavailable(String source, String target) {
+    public static void unavailable(String source, String target) {
         List<String> rsl = new ArrayList<>();
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
-            PrintWriter writer = new PrintWriter(new FileOutputStream(target));
-            String serverDrop = null;
             while (read.ready()) {
                 String status = read.readLine();
-                if (serverDrop == null && (status.startsWith("400") || status.startsWith("500"))) {
-                    String drop = status.split(" ")[1] + " server drop";
+                if (status.startsWith("400") || status.startsWith("500")) {
+                    String drop = "Конец работы сервера - " + status.split(" ")[1] + System.lineSeparator();
                     rsl.add(drop);
-                    writer.println(rsl);
-                    serverDrop = status;
-                } else if (serverDrop != null && (!status.startsWith("400") || !status.startsWith("500"))) {
-                    String up = status.split(" ")[1] + " server up";
+                } else {
+                    String up = "Начало работы сервера - " + status.split(" ")[1] + System.lineSeparator();
                     rsl.add(up);
-                    writer.println(rsl);
-                    serverDrop = null;
+                }
+                PrintWriter writer = new PrintWriter(new FileOutputStream(target));
+                for (var r : rsl) {
+                    writer.write(r);
                 }
             }
+            System.out.println(rsl);
         } catch (Exception e) {
             e.printStackTrace();
         }
