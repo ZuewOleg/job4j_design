@@ -18,9 +18,15 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             while (read.ready()) {
                 String line = read.readLine();
+                if (line.startsWith("#")) {
+                    read.readLine();
+                }
                 if (line.contains("=")) {
                     String[] l = line.split("=");
                     values.put(l[0], l[1]);
+                    if (l.length != 2) {
+                        throw new IllegalArgumentException();
+                    }
                 }
             }
         } catch (Exception e) {
@@ -30,18 +36,8 @@ public class Config {
 
     public String value(String key) {
         String rsl = "";
-        try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            while (read.ready()) {
-                String line = read.readLine();
-                if (line.contains("=")) {
-                    String[] l = line.split("=");
-                    if (key.equals(l[0])) {
-                        rsl = l[1];
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (values.containsKey(key)) {
+            rsl = values.get(key);
         }
         return rsl;
     }
