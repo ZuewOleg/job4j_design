@@ -12,25 +12,22 @@ import static java.nio.file.FileVisitResult.CONTINUE;
 public class Search {
     public static void main(String[] args) throws IOException {
         Path start = Paths.get(".");
-        search(start, p -> p.toFile().getName().endsWith("js")).forEach(System.out::println);
+        search(start, p -> p.toFile().getName().endsWith("java")).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
-        List<Path> rsl = new ArrayList<>();
         SearchFiles searcher = new SearchFiles(condition);
-        if (condition.test(root)) {
-            Files.walkFileTree(root, searcher);
-            rsl.addAll(searcher.getPaths());
-        }
-        return rsl;
+        Files.walkFileTree(root, searcher);
+        return searcher.getPaths();
     }
 
     public static class SearchFiles implements FileVisitor<Path> {
-        private Predicate<Path> predicate;
+        final Predicate<Path> predicate;
         List<Path> paths;
 
         public SearchFiles(Predicate<Path> predicate) {
             this.predicate = predicate;
+            this.paths = new ArrayList<>();
         }
 
         public List<Path> getPaths() {
@@ -38,23 +35,25 @@ public class Search {
         }
 
         @Override
-        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
             return null;
         }
 
         @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-            System.out.println(file.toAbsolutePath());
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+            if (predicate.test(file)) {
+                paths.add(file);
+            }
             return CONTINUE;
         }
 
         @Override
-        public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+        public FileVisitResult visitFileFailed(Path file, IOException exc) {
             return null;
         }
 
         @Override
-        public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+        public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
             return null;
         }
     }
