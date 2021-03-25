@@ -18,15 +18,13 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             while (read.ready()) {
                 String line = read.readLine();
-                if (line.startsWith("#")) {
-                    read.readLine();
+                if (line.startsWith("#") || line.length() == 0) {
+                    continue;
                 }
-                if (line.contains("=")) {
-                    String[] l = line.split("=");
-                    values.put(l[0], l[1]);
-                    if (l.length != 2) {
-                        throw new IllegalArgumentException();
-                    }
+                String[] l = line.split("=");
+                values.put(l[0], l[1]);
+                if (l.length != 2) {
+                    throw new IllegalArgumentException("Not true key");
                 }
             }
         } catch (Exception e) {
