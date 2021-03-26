@@ -36,7 +36,7 @@ public class Search {
 
         @Override
         public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
-            return null;
+            return CONTINUE;
         }
 
         @Override
@@ -49,12 +49,12 @@ public class Search {
 
         @Override
         public FileVisitResult visitFileFailed(Path file, IOException exc) {
-            return null;
+            return CONTINUE;
         }
 
         @Override
         public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
-            return null;
+            return CONTINUE;
         }
     }
 }
