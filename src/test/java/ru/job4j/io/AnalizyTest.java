@@ -30,9 +30,9 @@ public class AnalizyTest {
         try (BufferedReader in = new BufferedReader(new FileReader(target))) {
             in.lines().forEach(rsl::append);
         }
-        assertThat(rsl.toString(), is("Конец работы сервера - 10:57:01" +
-                "Начало работы сервера - 10:59:01" +
-                "Конец работы сервера - 11:01:02" +
-                "Начало работы сервера - 11:02:02"));
+        assertThat(rsl.toString(), is("Конец работы сервера - 10:57:01"
+                + "Начало работы сервера - 10:59:01"
+                + "Конец работы сервера - 11:01:02"
+                + "Начало работы сервера - 11:02:02"));
     }
 }
