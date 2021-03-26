@@ -22,10 +22,11 @@ public class Config {
                     continue;
                 }
                 String[] l = line.split("=");
-                values.put(l[0], l[1]);
-                if (l.length != 2) {
+                if (l.length != 2) { /* Валидацию индексов нужно делать до того, как будем ими пользоваться */
                     throw new IllegalArgumentException("Not true key");
                 }
+                values.put(l[0], l[1]);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
