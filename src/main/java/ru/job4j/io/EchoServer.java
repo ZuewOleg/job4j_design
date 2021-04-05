@@ -15,9 +15,9 @@ public class EchoServer {
                 входной поток и может отправить данные в выходной поток */
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
-                    String str;
+                    String str = in.readLine();
                     String answer = "";
-                    while (!(str = in.readLine()).isEmpty()) { /* В программе читается весь входной поток */
+                    while (!str.isEmpty()) { /* В программе читается весь входной поток */
                         System.out.println(str);
                         if (str.contains("GET /?msg=")) {
                             int index = str.indexOf("=");
@@ -28,6 +28,7 @@ public class EchoServer {
                                 answer = "Hello, client";
                             }
                         }
+                        str = in.readLine();
                     }
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     out.write(answer.getBytes());
