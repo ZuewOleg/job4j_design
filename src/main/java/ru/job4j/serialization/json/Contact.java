@@ -12,6 +12,5 @@ public class Contact {
         return "Contact{"
                 + "phone='" + phone + '\''
                 + '}';
-
     }
 }

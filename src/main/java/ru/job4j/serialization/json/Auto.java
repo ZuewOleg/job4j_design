@@ -12,6 +12,5 @@ public class Auto {
         return "Auto{"
                 + "brand='" + brand + '\''
                 + '}';
-
     }
 }
