@@ -38,7 +38,7 @@ public class EchoServer {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     out.write(answer.getBytes());
                     if (answer.equals("Завершаю работу сервера")) {
-                         server.close();
+                        server.close();
                     }
                 }
             }
