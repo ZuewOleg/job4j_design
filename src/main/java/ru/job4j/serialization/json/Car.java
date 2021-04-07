@@ -50,5 +50,6 @@ public class Car {
                         + "}";
         final Car carMod = gson.fromJson(carJson, Car.class);
         System.out.println(carMod);
+
     }
 }
