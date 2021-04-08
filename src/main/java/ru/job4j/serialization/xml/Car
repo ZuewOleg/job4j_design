@@ -1,0 +1,8 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<car insured="true" age="6">
+    <auto brand="BMW, 325"/>
+    <statuses>
+        <status>No deformations</status>
+        <status>2 owners by PTS</status>
+    </statuses>
+</car>
