@@ -1,4 +1,4 @@
-insert into personal(name, age, birthday, married, gender) values('Ivan', 35, '1/8/1999', true, 'M');
+insert into personal(name, age, birthday, married, gender) values('Ivan', 35, '1/8/1999', yes, 'M');
 select * from personal;
 update personal set name = 'Oleg';
 update personal set age = 28;
