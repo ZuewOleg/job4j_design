@@ -3,24 +3,12 @@ CREATE DATABASE init;
 CREATE TABLE users(
 	id serial primary key,
 	name varchar(2000)
-);
-
-CREATE TABLE item(
-	id serial primary key,
-	name varchar(2000)
-	comments_id int REFERENCES comments(id),
-	attachs_id int REFERENCES attachs(id)
-);
-
-CREATE TABLE users_item(
-	users_id int REFERENCES users(users_id),
-	item_id int REFERENCES item(item)
+	role_id int REFERENCES role(id)
 );
 
 CREATE TABLE role(
 	id serial primary key,
 	name varchar(2000)
-	users_id int REFERENCES users(users_id)
 );
 
 CREATE TABLE rules(
@@ -30,30 +18,38 @@ CREATE TABLE rules(
 
 CREATE TABLE role_rules(
 	id serial primary key,
-	role_id int REFERENCES role(id),
-	rules_id int REFERENCES rules(id)
+	role_id int references role(id),
+	rules_id int references rules(id)
+);
+
+CREATE TABLE item(
+	id serial primary key,
+	name varchar(2000)
+	users_id int REFERENCES users(id),
+	category_id int REFERENCES category(id),
+	state_id int REFERENCES state(id)
 );
 
 CREATE TABLE comments(
 	id serial primary key,
     name varchar(2000)
+    item_id int REFERENCES item(item)
 );
 
 CREATE TABLE attachs(
 	id serial primary key,
     name varchar(2000)
+    item_id int REFERENCES item(item)
 );
 
 CREATE TABLE category(
 	id serial primary key,
-    name varchar(2000),
-	item_id int REFERENCES item(id)
+    name varchar(2000)
 );
 
 CREATE TABLE state(
 	id serial primary key,
-    name varchar(2000),
-	item_id int REFERENCES item(id)
+    name varchar(2000)
 );
 
 INSERT INTO users (name) values ('Oleg');
