@@ -1,9 +1,9 @@
-create table products (
+create table products(
 	id serial primary key,
      name varchar(255)
 );
 
-create table prise (
+create table prise(
 	id serial primary key,
 	rub int,
 	products_id int references products(id)
