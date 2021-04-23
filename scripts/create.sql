@@ -1,11 +1,5 @@
 CREATE DATABASE init;
 
-CREATE TABLE users(
-	id serial primary key,
-	name varchar(2000)
-	role_id int REFERENCES role(id)
-);
-
 CREATE TABLE role(
 	id serial primary key,
 	name varchar(2000)
@@ -20,6 +14,22 @@ CREATE TABLE role_rules(
 	id serial primary key,
 	role_id int references role(id),
 	rules_id int references rules(id)
+);
+
+CREATE TABLE users(
+	id serial primary key,
+	name varchar(2000)
+	role_id int REFERENCES role(id)
+);
+
+CREATE TABLE category(
+	id serial primary key,
+    name varchar(2000)
+);
+
+CREATE TABLE state(
+	id serial primary key,
+    name varchar(2000)
 );
 
 CREATE TABLE item(
@@ -40,16 +50,6 @@ CREATE TABLE attachs(
 	id serial primary key,
     name varchar(2000)
     item_id int REFERENCES item(item)
-);
-
-CREATE TABLE category(
-	id serial primary key,
-    name varchar(2000)
-);
-
-CREATE TABLE state(
-	id serial primary key,
-    name varchar(2000)
 );
 
 INSERT INTO users (name) values ('Oleg');
