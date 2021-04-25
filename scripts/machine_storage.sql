@@ -44,14 +44,6 @@ join body b on c.body_id = b.id
 join engine e on c.engine_id = e.id
 join transmission t on c.transmission_id = t.id;
 
-select c.brand, b.body_type as "The body that is not used" from car c 
-cross join body b where c.body_id != b.id
-order by c.brand;
-
-select c.brand, e.engine_type as "The engine that is not used" from car c 
-cross join engine e where c.engine_id != e.id
-order by c.brand;
-
-select c.brand, t.transmission_type as "The transsmission that is not used" from car c 
-cross join transmission t where c.transmission_id != t.id
-order by c.brand;
+select b.body_type from body b cross join car c where b.id != c.body_id;
+select e.engine_type from engine e cross join car c where e.id != c.engine_id;
+select b.transmission_type from transmission t cross join car c where t.id != c.transmission_id;
