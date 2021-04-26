@@ -44,6 +44,6 @@ join body b on c.body_id = b.id
 join engine e on c.engine_id = e.id
 join transmission t on c.transmission_id = t.id;
 
-select b.body_type from body b cross join car c where b.id != c.body_id;
-select e.engine_type from engine e cross join car c where e.id != c.engine_id;
-select b.transmission_type from transmission t cross join car c where t.id != c.transmission_id;
+select b.body_type from body b left join car c on c.body_id = null;
+select e.engine_type from engine e left join car c on c.engine_id = null;
+select b.transmission_type from transmission t left join car c on c.transmission_id = null;
