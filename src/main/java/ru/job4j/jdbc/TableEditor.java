@@ -24,52 +24,54 @@ public class TableEditor implements AutoCloseable {
         connection = getConnection();
     }
 
-    private void getTable(String command, String tableName) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(command);
-            System.out.println(getScheme(tableName));
+    private void command(String command) {
+        try (Statement stat = connection.createStatement()) {
+            stat.execute(command);
+        } catch (SQLException sq) {
+            sq.printStackTrace();
         }
     }
 
     public void createTable(String tableName) throws SQLException {
         String sql = String.format(
-                "create table" + tableName + "(%s, %s);",
+                "create table %s (%s, %s);",
+                tableName,
                 "id serial primary key",
                 "name varchar(255)"
         );
-        getTable(sql, tableName);
+        command(sql);
     }
 
-    public void dropTable(String tableName) throws SQLException {
+    public void dropTable(String tableName) {
         String sql = String.format(
                 "drop table %s;",
                 tableName
         );
-        getTable(sql, tableName);
+        command(sql);
     }
 
-    public void addColumn(String tableName, String columnName, String type) throws SQLException {
+    public void addColumn(String tableName, String columnName, String type) {
         String sql = String.format(
-                "edit table" + tableName + "%s",
-                "add column" + columnName + type
+                "alter table %s add column %s %s;",
+                tableName, columnName, type
         );
-        getTable(sql, tableName);
+        command(sql);
     }
 
-    public void dropColumn(String tableName, String columnName) throws SQLException {
+    public void dropColumn(String tableName, String columnName) {
         String sql = String.format(
-                "edit table" + tableName + "%s",
-                "drop column" + columnName
+                "alter table %s drop column %s;",
+                tableName, columnName
         );
-        getTable(sql, tableName);
+        command(sql);
     }
 
-    public void renameColumn(String tableName, String columnName, String newColumnName) throws SQLException {
+    public void renameColumn(String tableName, String columnName, String newColumnName) {
         String sql = String.format(
-                "edit table" + tableName + "%s",
-                "edit column" + columnName + "on" + newColumnName
+                "alter table %s rename column %s to %s;",
+                tableName, columnName, newColumnName
         );
-        getTable(sql, tableName);
+        command(sql);
     }
 
     public String getScheme(String tableName) throws SQLException {
