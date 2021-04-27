@@ -39,11 +39,15 @@ insert into car(brand, model, body_id, engine_id, transmission_id) values ('BMW'
 insert into car(brand, model, body_id, engine_id, transmission_id) values ('AUDI', 'A5', 3, 2, 3);
 insert into car(brand, model, body_id, engine_id, transmission_id) values ('Toyota', 'Carolla', 4, 1, 2);
 
-select c.brand, c.model from car c 
+select c.brand, c.model, b.body_type, engine_type, t.transmission_type from car c
 join body b on c.body_id = b.id
 join engine e on c.engine_id = e.id
 join transmission t on c.transmission_id = t.id;
 
-select b.body_type from body b left join car c on c.body_id = null;
-select e.engine_type from engine e left join car c on c.engine_id = null;
-select b.transmission_type from transmission t left join car c on c.transmission_id = null;
+select c.brand, b.body_type as "Неиспользуемые детали" from car c left join body b on c.body_id != b.id;
+select c.brand, e.engine_type as "Неиспользуемые детали" from car c left join engine e on c.engine_id != e.id;
+select c.brand, c.model, t.transmission_type as "Неиспользуемые детали" from car c left join transmission t on c.transmission_id != t.id;
+
+select b.body_type, (c.brand, c.model) as "Детали не используются в авто" from body b left join car c on c.body_id != null;
+select e.engine_type, (c.brand, c.model) as "Детали не используются в авто" from engine e left join car c on c.engine_id = null;
+select t.transmission_type, (c.brand, c.model) as "Детали не используются в авто" from transmission t left join car c on c.transmission_id = null;
