@@ -23,7 +23,9 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(s -> {
                 String[] index = s.split(";");
-                users.add(new User(index[0], index[1]));
+                if (index.length == 2) {
+                    users.add(new User(index[0], index[1]));
+                }
             });
         }
         System.out.println(users);
