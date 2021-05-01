@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Properties;
 
 public class ImportDB {
-
     private Properties cfg;
     private String dump;
 
@@ -22,9 +21,12 @@ public class ImportDB {
     public List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            rd.lines().forEach(s -> users.add(new User(s.substring(0, s.indexOf(";")),
-                    s.substring(s.indexOf(";") + 1, s.length() - 1))));
+            rd.lines().forEach(s -> {
+                String[] index = s.split(";");
+                users.add(new User(index[0], index[1]));
+            });
         }
+        System.out.println(users);
         return users;
     }
 
@@ -54,6 +56,14 @@ public class ImportDB {
             this.name = name;
             this.email = email;
         }
+
+        @Override
+        public String toString() {
+            return "User{"
+                    + "name='" + name + '\''
+                    + ", email='" + email + '\''
+                    + '}';
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -62,7 +72,7 @@ public class ImportDB {
                 "app.properties")) {
             cfg.load(in);
         }
-        ImportDB db = new ImportDB(cfg, "./dump");
+        ImportDB db = new ImportDB(cfg, "./dump.txt");
         db.save(db.load());
     }
 }
