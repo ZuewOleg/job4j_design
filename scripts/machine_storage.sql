@@ -54,3 +54,5 @@ select e.engine_type as "Двигатель", (c.brand, c.model) as "Не исп
 where c.engine_id is null;
 select t.transmission_type "Трансмиссия", (c.brand, c.model) as "Не используются на авто" from car c left join transmission t on c.transmission_id = t.id
 where c.transmission_id is null;
+
+select c.brand, c.model, b.body_type as "Неиспользуется на авто" from body b left join car c on c.body_id = b.id where c.body_id is null;
