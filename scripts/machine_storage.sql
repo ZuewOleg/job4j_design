@@ -45,14 +45,14 @@ join body b on c.body_id = b.id
 join engine e on c.engine_id = e.id
 join transmission t on c.transmission_id = t.id;
 
-select c.brand, b.body_type as "Неиспользуемые детали" from car c left join body b on c.body_id != b.id;
-select c.brand, e.engine_type as "Неиспользуемые детали" from car c left join engine e on c.engine_id != e.id;
-select c.brand, c.model, t.transmission_type as "Неиспользуемые детали" from car c left join transmission t on c.transmission_id != t.id;
+select c.brand, c.model, b.body_type as "Неиспользуется на авто" from
+body b left join car c on c.body_id = b.id
+where c.body_id is null;
 
-select b.body_type as "Кузов", (c.brand, c.model) as "Не используются на авто" from car c left join body b on c.body_id = b.id where c.body_id is null;
-select e.engine_type as "Двигатель", (c.brand, c.model) as "Не используются на авто" from car c left join engine e on c.engine_id = e.id
+select c.brand, c.model, e.engine_type as "Неиспользуется на авто" from engine e left join
+car c on c.engine_id = e.id
 where c.engine_id is null;
-select t.transmission_type "Трансмиссия", (c.brand, c.model) as "Не используются на авто" from car c left join transmission t on c.transmission_id = t.id
-where c.transmission_id is null;
 
-select c.brand, c.model, b.body_type as "Неиспользуется на авто" from body b left join car c on c.body_id = b.id where c.body_id is null;
+select c.brand, c.model, t.transmission_type as "Неиспользуется на авто" from
+transmission t left join car c on c.transmission_id = t.id
+where c.transmission_id is null;
